@@ -1,1 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Chapter 7 Forms</title>
+</head>
+<body>
+  <form action="thankyou.html" method="post">
+    
+    <fieldset>
+      <legend>User Information</legend>
+      <label>Enter your name:<br />
+        <input type="text" name="name" size="20" maxlength="45" /></label><br />
+      <label>Enter your password:<br />
+        <input type="password" name"password" maxlength="20" /></label><br />
+      <label for="aboutyou">Tell us about you:</label><br />
+        <textarea name="aboutyou" id="comments" cols="30" rows="5"></textarea> 
+    </fieldset>
 
+    <p>
+      Are you new to my site?<br />
+      <label>
+        <input type="radio" name="newvisitor" value="Yes" />
+        Yes
+      </label>
+      <label>
+        <input type="radio" name="newvisitor" value="No" />
+        No
+      </label><br />
+      <label>Do you want to subscribe to my blog?
+        <input type="checkbox" name="subscribe" checked="checked" />
+      </label><br />
+      <label for="studentyear">
+        What is your student's year? 
+      </label>
+      <select name="studentyear" id="studentyear">
+        <option value="selectone">Select an Option</option>
+        <option value="first">First</option>
+        <option value="second">Second</option>
+        <option value="third">Third</option>
+        <option value="fourth">Fourth</option>
+      </select><br />
+      <label for="hearabout">
+        Where did you hear about me?
+      </label><br />
+      <select name="hearabout" id="hearabout" size="4" multiple="multiple">
+        <option value="web">Web</option>
+        <option value="newspaper">Newspaper</option>
+        <option value="friend">Friend</option>
+        <option value="bathroomwall">Bathroom Wall</option>
+        <option value="tony">Tony sent me</option>
+      </select><br />
+    </p>
+    <input type="submit" value="Send" />      
+</body>
+</html>
