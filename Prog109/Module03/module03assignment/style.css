@@ -18,10 +18,3 @@ p {
 i { 
 	color:darkgreen;
 	}
-h1, h2, p {
-	padding: 12px;
-	line-height: 2em;
-	}
-i, a, a:hover, a:visited {
-	color: #665544;
-	}
