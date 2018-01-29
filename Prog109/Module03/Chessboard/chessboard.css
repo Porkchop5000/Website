@@ -1,1 +1,62 @@
-
+    .row{
+      position:relative; margin-left:10%;margin-right:10%;
+    }
+    .white{
+      border: 1px solid black; width:10%;height: 60px;
+      background-color:white;
+      background-color: hsla(190,15%,100%,0.5);
+      float: left;
+    }
+    .black{
+      border: 1px solid black; width:10%;height: 60px;
+      background-color:black;
+      background-color: hsla(200,25%,0%,0.5);
+      float: left;
+    }
+    .clear {
+    clear:both;
+    }
+    #container {
+      
+     margin-top:20%;
+     margin-left:auto;
+     margin-right:auto;
+     margin-bottom:5%;
+    }
+    #title {
+     position:fixed;
+     top:10px;
+     left:0px; 
+     padding:10px;
+     margin:0px; margin-top:5px; margin-bottom:5px;
+     width:100%;
+     background-color:dodgerblue;
+      background-color:hsla(190,100%,30%,1);
+     text-align:center; 
+     z-index:10;
+     font-family: 'MegrimMedium';
+     font-weight: bold;
+     font-style: normal; 
+    }
+    img {
+     margin-left: 5px;
+     margin-top:10px;
+    }
+    body {
+      background-image:url(http://www.slate.com/content/dam/slate/articles/arts/gaming/2016/10/161013_GAME_chess-promo.jpg.CROP.promo-xlarge2.jpg);
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: center; 
+    }
+    #footer {
+      border:solid 1px;
+      padding: 10px;
+      margin:10px;
+      background-color:dodgerblue;
+      background-color:hsla(190,100%,30%,1);
+    }
+    .validator {
+       display: block;
+       margin-left: auto;
+       margin-right: auto;
+    }
