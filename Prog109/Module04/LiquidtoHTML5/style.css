@@ -5,9 +5,9 @@
 			body {
 				width: 90%;
 				margin: 0 auto;}
-			.content {
+			#content {
 				overflow: auto;}
-			.nav, .section, #footer {
+			.nav, .section, .footer {
 				margin: 1%;}
 			.column1, .column2, .column3 {
 				width: 31.3%;
@@ -18,7 +18,7 @@
 			li {
 				display: inline;
 				padding: 0.5em;}
-			.nav, #footer {
+			.nav, .footer {
 				background-color: #efefef;
 				padding: 0.5em 0;}
 			.section, .article {
