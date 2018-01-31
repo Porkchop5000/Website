@@ -1,13 +1,24 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Lists, Tables and Forms</title>
+		<title>3 Columns</title>
 		<style type="text/css">
 			body {
 				font-family: Arial, Verdana, sans-serif;
 				font-size: 90%;
 				color: #666666;
-				background-color: #f8f8f8;}
+				background-color: #f8f8f8;
+                width: 90%;
+                margin: 0 auto;}
+            #column1, #column2, #column3 {
+                width: 31.3%;
+                float: left;
+                margin: 1%;
+                overflow: auto;
+                }
+          h1 {
+                text-align: center;
+                }
 			li {
 				list-style-image: url("images/icon-plus.png");
 				line-height: 1.6em;}
@@ -86,6 +97,7 @@
 	</head>
 	<body>
 		<h1>Poetry Workshops</h1>
+      <div id="column1"
 		<p>We will be conducting a number of poetry workshops and symposiums throughout the year.</p>
 		<p>Please note that the following events are free to members:</p>
 		<ul>
@@ -93,6 +105,8 @@
 			<li>Walt Whitman at War</li>
 			<li>Found Poems and Outsider Poetry</li>
 		</ul>
+      </div>
+      <div id="column2">
 		<table>
 			<tr class="head">
 				<th></th>
@@ -125,6 +139,8 @@
 				<td>Sat, 15 Sep 2012<br />11am - 4pm</td>
 			</tr>
 		</table>
+        </div>
+        <div id="column3">
 		<form action="http://www.example.com/form.php" method="get">
 			<fieldset>
 				<legend>Register your interest</legend>
@@ -144,5 +160,6 @@
 			</fieldset>
  	    <div class="submit"><input type="submit" value="Register" /></div>
 		</form>
+      </div>
 	</body>
 </html>
