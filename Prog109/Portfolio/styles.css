@@ -25,6 +25,10 @@
       text-transform: uppercase;
       letter-spacing: .5em
     }
+	h2 {
+		color:gold;
+		font-weight: bold;
+	}
     nav {
       background-color: darkred;
       border-radius: .75em;
