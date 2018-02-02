@@ -1,0 +1,82 @@
+    * {
+       font-family: 'XoloniumRegular';
+       font-weight: normal;
+       font-style: normal;
+       color: goldenrod;
+    }
+    body {
+      background-color: black;
+		background-image: url("Images/stars.jpg");
+		background-position: center;
+		background-repeat: repeat-x;
+      width: 90%;
+      margin: 0 auto
+    }
+    header {
+		height: 350px;
+      background-image: url("Images/headerbackground.jpg");
+      background-repeat: no-repeat;
+      background-position: center;      
+    }
+    h1 {
+      color:gold;
+      text-align: center;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: .5em
+    }
+    nav {
+      background-color: darkred;
+      border-radius: .75em;
+	  text-align: center;
+    }
+    nav li, .selected {
+      display: inline;
+      padding: .5em;
+      margin: .5em;
+    }
+    a:hover {
+      color: black;
+    }
+    .selected {
+      border-radius: .75em;
+      color: black;
+      background-color: orangered;
+      margin: 1%;
+    }
+	.clearfix:before, .clearfix:after {
+		content:"";
+		display:table;
+	}
+	.clearfix:after {
+		clear:both;
+	}
+	article {
+		background-color: darkred;
+		border-radius: .75em;
+		padding: 10px;
+		margin: 10px;
+		max-width: 300px;
+		float: left;
+	}
+	article figure {
+		float:left;
+		margin: 10px;
+	}
+    footer {
+      background-color: darkred;
+      border-radius: .75em;
+      text-align: center;
+      padding: 1%;
+      margin: 1%;
+	}
+	form {
+		background-color: darkred;
+		border-radius: .75em;
+		padding: 10px;
+		margin: 10px auto 10px auto;
+		max-width: 300px;
+		text-align:center;
+	}
+
+ 
