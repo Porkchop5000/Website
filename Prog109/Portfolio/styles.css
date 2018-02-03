@@ -18,14 +18,14 @@
       background-repeat: no-repeat;
       background-position: center;      
     }
-    h1 {
+    h1, h2 {
       color:gold;
       text-align: center;
       font-weight: bold;
       text-transform: uppercase;
       letter-spacing: .5em
     }
-	h2 {
+	h3 {
 		color:gold;
 		font-weight: bold;
 	}		
