@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>String Form</title>
+	<script src='string.js'></script>
+	<link rel='stylesheet' href='string.css' type='text/css'>
+</head>
+<body>
+	<h1>To Upper or To Lower?</h1>
+	<form name='textForm' action=' ' method='get'>Enter some text here: <br />
+	<input type='text' name='textInput' value='Text goes here' size='20' maxlength='30' /><br />
+	Upper case or lower case?<br />
+	<input type='radio' name='upperOrLower' value='Upper Case' checked='checked' /> Upper Case 
+	<input type='radio' name='upperOrLower' value='Lower Case' /> Lower Case <br />
+	<input type='button' name='submit' value='submit' onClick='results(this.form)'>
+	</form>
+</body>
+</html>
