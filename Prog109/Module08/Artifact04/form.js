@@ -20,7 +20,7 @@ var validPhone = false;
 var validAddress = false;
 var validCity = false;
 var validCountry = false;
-var validZip = false;
+var validZipCode = false;
 var validEmail = validateEmail();
 
 
@@ -92,38 +92,37 @@ if (myContact.city.value==null
 	errorMessages += "<p>A city is required.</p>";
 	}
 else{
-	validAddress = true; 
+	validCity = true; 
 	}
 
 //validates country - must be Canada, Mexico, or the United States
-if (myContact.countries.value==null 
-	|| myContact.countries.value=== ""
-	|| myContact.countries.value=== "Select one..."){
-	errorMessages += "<p>A country is required.</p>";
+if (myContact.countries.value=== "Select one..."
+	|| myContact.countries.value == null
+	|| myContact.countries.value === ""){
+		errorMessages += "<p>A country is required</p>";
 	}
 else{
-	validCountry = true; 
-	}
-//validates zip code - only if USA is selected
-if (myContact.countries.value==="United States"){
-	if (myContact.zipcode.value==null 
-	|| myContact.zipcode.value=== "" 
-	|| myContact.zipcode.value.length >5
-	|| isNaN(myContact.zipcode.value)){
-	errorMessages += "<p>The zip code must be less than 5 characters, must be a number, and is required for any address in the United States.</p>";
-	}
-	else{
-	validZip = true;
-	}
-}
-else{
-	validZip = true;
+	validCountry = true;
 }
 
+//validates zip code - required if US and must be 5 characters
+if (myContact.countries.value==="United States"){
+	if (myContact.zipcode.value.length !=5
+	|| isNaN(myContact.zipcode.value)){
+		errorMessages += "<p>Zip code for the United States must have 5 characters, must be a number, and is required</p>";
+	}
+	else{
+		validZipCode = true;
+	}
+}
+else{
+	validZipCode = true;
+}
 //error message and return here
 document.getElementById("errorMessages").innerHTML = errorMessages;
 // Make sure you return all the boolean variables that are checking each field
  return (validUsername && validPassword && validFirstName  && validLastName 
 	&& validEmail && validPhone && validAddress && validCity && validCountry
-	&& validZip) ;
+	&& validZipCode) ;
 }
+
