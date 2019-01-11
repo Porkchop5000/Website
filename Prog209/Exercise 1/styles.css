@@ -1,0 +1,48 @@
+	*{
+		font-family: calibri, arial, sans-serif;		
+	}
+	header{
+		background-color: Mediumseagreen; 
+		width: 700px;
+		height: 60px;
+		float: left;
+		clear-float: right;
+	}
+	h1 {
+		text-align: top;
+		text-indent: 20px;
+		font-size: 24px;
+	}
+	h2 {
+		font-size: 18px
+	}
+	#mapAndButtons {
+		width: 700px;
+		height: 700px;
+		margin: 0px 10px 0px 10px;
+	}
+	#map {
+		float: left;
+		width: 500px;
+		height: 500px;
+		background-image: url("Images/map.jpg");
+	}
+	#lilDude {
+		position: absolute;
+		top: 230px;
+		left: 200px;
+	}
+	#buttonColumn {
+		text-align: center;
+		float: right;
+		width: 200px;
+		height: 500px;
+		background-color: Pink;
+	}
+	#copyrightInfo {
+		background-color: Tan;
+		text-align: center;
+		width: 700px;
+		height: 40px;
+		float: left;
+	}
