@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>HTML 5 Web Storage</title>
+
+<link href="reset.css" type="text/css" rel="stylesheet" />
+
+<link href="webStorage_Style.css" type="text/css" rel="stylesheet" />
+
+<script src="webStorage.js"></script>
+
+
+
+</head>
+
+<body>
+
+<div id="main">
+	<section id="userinput">
+    Order: <br>
+	<hr />
+    <br /><br />
+    <form autocomplete="false">
+	<fieldset id="donutOrder">
+    <legend>Donut Order</legend>
+	<label for="donutType">Type of Donut:</label><br />
+	<input name="donutType" id="donutType" type="text" size="15" maxlength="20"/>
+	<br />
+	<label for="filling">Filling:</label><br />
+	<input name="filling" id="filling" type="text" size="15" maxlength="20"/>
+	<br />
+	<label for="toppings">Toppings:</label><br />
+	<input name="toppings" id="toppings" type="text" size="15" maxlength="30"/>
+	<br />
+	<label for="howMany">How many donuts:<label><br />
+	<input name="howMany" id="howMany" type="text" size="5" maxlength="3"/>
+	<br />
+	<label for="specialInstructions">Special Instructions:</label><br />
+	<textarea name="specialInstructions" id="specialInstructions" cols="30" rows="10"></textarea>
+     <div><input type="button" id="orderButton" value="Give me donuts!"></div>
+    <fieldset/>
+    </form>
+    </section>
+    
+    
+    <section id="useroutput">
+ Order Made:  
+ 	<hr />
+    <br /><br />
+		<div id="orderMade"></div>
+		<div id="errorMessage"></div>
+    </section>
+
+</div>
+
+
+
+</body>
+</html>

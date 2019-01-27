@@ -1,0 +1,42 @@
+@charset "UTF-8";
+/* CSS Document */
+body {
+      background-color: black;
+		background-image: url("images/donuts.jpg");
+		background-position: center;
+		background-attachment: fixed;
+		background-size: cover;
+		margin: 0 auto;
+	}
+#main{
+width:750px; height:500px;
+margin:0 auto;	
+}
+#userinput{
+	float:left;
+	margin-top:25px;
+	padding:20px;
+	background-color: HotPink;
+	border-radius: 20px;
+	border-style: outset;
+	border-width: 10px;
+	border-color: lightPink salmon salmon lightPink;
+	width:300px; height:500px;
+	}
+
+
+#useroutput{
+	float:left;
+	margin-top:25px;
+	margin-left:20px;
+	padding:20px;
+	background-color: Brown;
+	border-radius: 20px;
+	border-style: outset;
+	border-width: 10px;
+	border-color: lightPink DarkRed DarkRed lightPink;
+	width:300px; height:500px;
+
+	
+	}
+
