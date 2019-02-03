@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>The Shuffler</title>
+
+<link href="shuffler.css" type="text/css" rel="stylesheet" />
+
+</head>
+<body>
+<div id="container">
+<div id="listEntry">
+<h1>The Shuffler</h1>
+<h4>Instructions:</h4>
+<p>Enter as many items as you like hitting the add button for each one. 
+Once you are happy with your list, hit the shuffle button and they will be randomized. 
+You may repeatedly shuffle the list, add more items to shuffle,
+ or hit reset to clear the list and start over.</p><br />
+<hr /><br />
+<label for="item">Enter item here:</label>
+<input name="item" id="item" type="text" placeholder="Item to be added..." size="20" maxlength="20" autofocus/>
+<button name="addButton" id="addButton">Add</button>
+<br />
+<div id="errorMessage"></div>
+<br /><button name="shuffleButton" id="shuffleButton" >Shuffle</button>
+<button name="resetButton" id="resetButton">Reset</button>
+<br />
+<br />
+</div>
+<h4>List:<h4> <hr /><br />
+<div id="list"></div>
+<script src="shuffler.js"></script>
+</div>
+</body>
+</html>
