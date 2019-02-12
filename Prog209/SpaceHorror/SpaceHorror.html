@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Space Horror</title>
+	<link rel="stylesheet" href="css/spaceHorror.css">
+</head>
+
+<body>
+<!-- title screen -->
+<section id="titleScreen">
+<h1>Space Horror</h1>
+<div id="startControls">
+<button id="playButton" name="playButton">Play</button>
+<button id="loadButton" name="loadButton">Load</button>
+</div>
+</section>
+<!-- intro screen -->
+<section id="introScreen">
+<button id="continueButton" name="continueButton">Continue</button>
+</section>
+<!-- game screen -->
+<section id="gameScreen">
+<div id="locationImage">
+<div id="locationName"><h1>Name goes here</h1></div>
+<div id="locationMessage">Location message goes here</div>
+<div id="creatures">Creature cards go here</div>
+</div>
+<div id="sideBar">
+<div id="oxygenRemaining"></div>
+<div id="actions">
+<ul>Available Actions:
+	<li><em>Use:</em> Use an item you have or interact with something in the room</li>
+	<li><em>Take:</em> Take an item from a room</li>
+	<li><em>Move:</em> Can go North, South, East, or West</li>
+</ul>
+</div>
+<div id="itemsHeld">
+<ul>Items Held:
+</ul>
+</div>
+<div id="saveAndQuitButtons">
+<button id="saveButton" name="saveButton">Save Game</button>
+<button id="quitButton" name="quitButton">Quit Game</button>
+</div>
+</div>
+<footer id="playerControls">
+<input id="playerInput" name="playerInput" type="text" placeholder="Enter your action here..." size="45" maxlength="45">
+<button id="enterButton" name="enterButton">Enter</button>
+<div id="playerConsole"></div>
+</footer>
+</section>
+<!-- game over screen -->
+<section id="gameOverScreen">
+<img id="gameOverImg" src=""></img>
+<div id="gameOverMessage"></div>
+<button id="loadButton" name="loadButton">Load</button>
+<button id="quitButton" name="quitButton">Quit Game</button>
+</section>
+<script src="js/spaceHorror.js"></script>
+</body>
+</html>
