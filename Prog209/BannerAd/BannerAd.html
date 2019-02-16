@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Banner Ad</title>
+    <meta charset="utf-8">
+	<link rel="stylesheet" href="bannerAd.css">
+</head>
+
+<body>
+<div id="bannerAd">
+<img id="lawyers" src="images/lawyers.jpg" alt="a bunch of lawyers">
+<div id="txt01" class="animatedTxt">In an accident?</div>
+<div id="txt02" class="animatedTxt">Injured?</div>
+<div id="txt03" class="animatedTxt">Maybe not really injured?</div>
+<div id="txt04" class="animatedTxt">Don't worry</div>
+<div id="txt05" class="animatedTxt">We'll still get you money!!!</div>
+<div id="txt06" class="animatedTxt">Dewey Cheatham & Howe</div>
+<div id="txt07" class="animatedTxt">Attorney's at Law</div>
+</div>
+
+<!-- load Content Delivery Network (CDN) scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/plugins/CSSPlugin.min.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/easing/EasePack.min.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TimelineLite.min.js">
+</script>
+
+<!-- add your own script -->
+<script>
+	var lawyers = document.getElementById("lawyers"),
+		txt01 = document.getElementById("txt01"),
+		txt02 = document.getElementById("txt02"),
+		txt03 = document.getElementById("txt03"),
+		txt04 = document.getElementById("txt04"),
+		txt05 = document.getElementById("txt05"),
+		txt06 = document.getElementById("txt06"),
+		txt07 = document.getElementById("txt07");
+	TweenMax.from(txt01, 1, {x: 920});
+	TweenMax.to(txt01, 1, {fontSize: 0, height: 0, opacity: 0, delay: 1.5});
+	TweenMax.from(txt02, 1, {x: 920, delay: 1.5});
+	TweenMax.to(txt02, 1, {fontSize: 0, height: 0, opacity: 0, delay: 3});
+	TweenMax.from(txt03, 1, {x: 920, delay: 3.5});
+	TweenMax.to(txt03, 1, {fontSize: 0, height: 0, opacity: 0, delay: 5});
+	TweenMax.from(txt04, 0.5, {y: 100, delay: 5});
+	TweenMax.to(txt04, 1, {fontSize: 0, height: 0, opacity: 0, delay: 6});
+	TweenMax.from(txt05, 0.5, {y: -100, ease:Bounce.easeOut, delay: 7});
+	TweenMax.to(txt05, 1, {y: 100, opacity: 0, delay: 8});
+	TweenMax.from(txt06, 0.5, {y: -100, ease:Bounce.easeOut, delay: 8.5});
+	TweenMax.from(txt07, 0.5, {y: 50, ease:Bounce.easeOut, delay: 9});
+	TweenMax.from(lawyers, 1.5, {x: -980, ease:Bounce.easeOut, delay: 9.5});
+
+</script>
+
+</body>
+</html>
