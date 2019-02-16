@@ -1,0 +1,31 @@
+#bannerAd {
+	height: 100px;
+	width: 920px;
+	background-color: black;
+	position: relative;
+	margin: 10px auto;
+	overflow: hidden;
+}
+#lawyers {
+	position: relative;
+	top: -50px;
+	left: 450px;
+	display: hidden;
+	
+}
+.animatedTxt {
+	color: White;
+	position: absolute;
+	width: inherit;
+	text-align: center;
+	top: 5px;
+	left: 0px;
+	font-size: 80px;
+}
+#txt06 {
+	top: -5px;
+}	
+#txt07 {
+	font-size: 24px;
+	top: 70px;
+}
