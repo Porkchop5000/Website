@@ -1,5 +1,11 @@
-* { margin: 0; 
+* { 
+	margin: 0; 
 	padding: 0;
+    font-family: 'XoloniumRegular';
+    font-weight: normal;
+    font-style: normal;
+	text-shadow: 1px 1px 0px black;
+
 }
 @font-family {
 
@@ -46,6 +52,11 @@ body {
 	position: relative;
 	display: none;
 }
+#introNarrative {
+	margin: 50px auto;
+	padding: 10px;
+	background-color: rgba(0, 0, 200, 0.25);
+}
 #gameScreen {
 	margin: 25px auto;
 	text-align: center;
@@ -80,6 +91,9 @@ body {
 	height: 220px;
 	width: 660px;
 	background-color: rgba(0, 200, 0, 0.25); 
+	background-image: url(../images/lurker.jpg);
+	background-size: contain;
+	background-repeat: no-repeat;
 }
 #sideBar {
 	margin: 0px;
@@ -111,7 +125,11 @@ li {
 	text-align: left;
 }
 ul {
-list-style-type: none;
+	list-style-type: none;
+}
+em {
+	font-style: bold;
+	color: white;
 }
 #saveAndQuitButtons {
 	position: absolute;
@@ -137,8 +155,35 @@ list-style-type: none;
 #gameOverScreen {
 	margin: 25px auto;
 	text-align: center;
-	width: 800px;
-	height: 400px;
+	width: 900px;
+	height: 500px;
 	position: relative;
-	display: none;	
+	display: none;
+	background-image: url(../images/deadFloatingHand.jpg);
+	background-repeat: no-repeat;
+	background-position: center;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+#gameOverBanner {
+	margin: 75px auto 10px;
+	background-image: url(../images/youDied.png);
+	background-position: center;
+	width: 900px;
+	height: 150px;
+	position: relative;
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+#gameOverMessage {
+	margin: 5px auto;
+	height: 200px;
+	width: 400px;
+	position: relative;	
+	background-color: rgba(0, 200, 0, 0.25); 
 }
