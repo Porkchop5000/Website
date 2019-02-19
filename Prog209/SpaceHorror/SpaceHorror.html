@@ -3,6 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>Space Horror</title>
+	<link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/xolonium" type="text/css"/> 
 	<link rel="stylesheet" href="css/spaceHorror.css">
 </head>
 
@@ -11,12 +12,23 @@
 <section id="titleScreen">
 <h1>Space Horror</h1>
 <div id="startControls">
-<button id="playButton" name="playButton">Play</button>
-<button id="loadButton" name="loadButton">Load</button>
+<button class="playButton" id="playButton01" name="playButton">Play</button>
+<button class="loadButton" id="loadButton01" name="loadButton">Load</button>
 </div>
 </section>
 <!-- intro screen -->
 <section id="introScreen">
+<div id="introNarrative">
+	<p>You are a smuggler who had a job go very wrong. You are the last remaining of your crew. 
+	The rest are captured or dead. You barely escaped capture piloting a stolen escape pod. 
+	You've been drifting in space for weeks and the emergency food supplies ran out days ago.
+	Starving, desparate, nearly out of water, and nearly hallucinating, you come across a vessel. 
+	Trying to get your head straight you think of a cover story so you can at least get to the nearest
+	coloney before someone catches on. Thing is, no one answers when you hail the ship. You figure that 
+	if it's abandoned, there should at least be some supplies. You attempt to dock. Being that you were 
+	not the pilot in your crew, the landing goes badly damaging your ship. Fortunately you are still 
+	mostly intact.</p>
+</div>
 <button id="continueButton" name="continueButton">Continue</button>
 </section>
 <!-- game screen -->
@@ -41,7 +53,7 @@
 </div>
 <div id="saveAndQuitButtons">
 <button id="saveButton" name="saveButton">Save Game</button>
-<button id="quitButton" name="quitButton">Quit Game</button>
+<button class="quitButton" id="quitButton01" name="quitButton">Quit Game</button>
 </div>
 </div>
 <footer id="playerControls">
@@ -53,9 +65,10 @@
 <!-- game over screen -->
 <section id="gameOverScreen">
 <img id="gameOverImg" src=""></img>
+<div id="gameOverBanner"></div>
 <div id="gameOverMessage"></div>
-<button id="loadButton" name="loadButton">Load</button>
-<button id="quitButton" name="quitButton">Quit Game</button>
+<button class="loadButton" id="loadButton02" name="loadButton">Load</button>
+<button class="quitButton" id="quitButton02" name="quitButton">Quit Game</button>
 </section>
 <script src="js/spaceHorror.js"></script>
 </body>
