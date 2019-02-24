@@ -271,6 +271,10 @@ function gameOver(ending) {
 	switch(ending) {
 		case "suckedIntoSpace":
 		console.log("you dead sucka");
+		gameOverMessage.innerHTML = "<p>You activate the airlock and are sucked into the void of space." +
+		" As the fluid in your eyes boils and the oxygen is violently sucked out of your lungs only to" +
+		" freeze instantly, you get the small satisfaction of knowing that the swarm is out here suffering" +
+		" the same fate as you. Perhaps you should have worn a space suit. So it goes.</p>";
 		break;
 		
 		case "saved":
@@ -335,6 +339,9 @@ function loadHandler( ) {
 	mapLocation = parseInt(localStorage.getItem("mapLocation"));//convert string to integer
 	//code to pull various room states and load them so that it creates a boolean from the string
 	spaceSuit = (localStorage.getItem("spaceSuit") == "true");
+	if (spaceSuit) {
+		map[1].locked = false;//unlocks the comm sat area if the space suit is true
+	}
 	map[1].satelliteAligned = (localStorage.getItem("satelliteAligned") == "true");
 	map[5].consoleRepaired = (localStorage.getItem("consoleRepaired") == "true");
 	if (map[5].consoleRepaired) {
@@ -500,9 +507,15 @@ function useItem() {
 				switch(item) {
 					case "airlock":
 						if (spaceSuit) {//verify player is wearing the space suit
-							consoleMessage = "You open the airlock and hold on tight while the " + 
-							map[mapLocation].creatures + " gets sucked in the vacuum of space." +
-							"You reseal the airlock and breathable air slowly fills the room.";
+							consoleMessage = "You open the airlock and hold on tight while the ";
+							if (map[mapLocation].creatures !== null) {
+								consoleMessage += map[mapLocation].creatures + 
+								" gets sucked in the vacuum of space. ";
+							}
+							else {
+								consoleMessage += "air sucks out of the room. ";
+							}
+							consoleMessage += "You reseal the airlock and breathable air slowly fills the room.";
 							map[mapLocation].creatures = null;						
 						}
 						else { 
@@ -637,7 +650,7 @@ function render() {
 //function to render creatures if they exist in a room
 function creatureDisplayHandler() {
 	locationCreatures.style.display = "block";
-	locationCreatures.style.backgroundImage = "url(images/" + map[mapLocation].creatures + ".jpg)";
+	locationCreatures.style.backgroundImage = "url(images/" + map[mapLocation].creatures + ".png)";
 	locationCreatures.innerHTML = "<h3>" + map[mapLocation].creatures.toUpperCase() + "</h3>";
 }
 
