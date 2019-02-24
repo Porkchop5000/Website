@@ -7,9 +7,6 @@
 	text-shadow: 1px 1px 0px black;
 
 }
-@font-family {
-
-}
 body {
 	background-color: black;
 	background-image: url(../images/background.jpg);
@@ -90,7 +87,7 @@ body {
 	padding: 5px;
 	height: 220px;
 	width: 660px;
-	background-color: rgba(0, 200, 0, 0.25); 
+	background-color: rgba(0, 200, 0, 0); 
 	background-image: url(../images/lurker.jpg);
 	background-size: contain;
 	background-repeat: no-repeat;
@@ -126,9 +123,9 @@ li {
 }
 ul {
 	list-style-type: none;
+	text-align: center;
 }
 em {
-	font-style: bold;
 	color: white;
 }
 #saveAndQuitButtons {
@@ -183,7 +180,7 @@ em {
 #gameOverMessage {
 	margin: 5px auto;
 	height: 200px;
-	width: 400px;
+	width: 500px;
 	position: relative;	
 	background-color: rgba(0, 200, 0, 0.25); 
 }
