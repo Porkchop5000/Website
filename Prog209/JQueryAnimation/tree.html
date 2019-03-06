@@ -1,1 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>JQuery Animation</title>
+	<link rel="stylesheet" href="JQueryAnimation.css">
+</head>
 
+<body>
+<image id="tree" src="images/tree.jpg">
+</br>
+<div id="button container">
+<button id="grow">Grow</button>
+<button id="shrink">Shrink</button>
+<button id="fade">Fade Away</button>
+</div>
+<script
+  src="http://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous">
+ </script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+<script>
+ $(function() {
+	'use strict';
+	
+	var $tree = $('#tree');
+	
+	$('#grow').on('click', grow);
+	$('#shrink').on('click', shrink);
+	$('#fade').on('click', fade);
+	
+	function grow() {
+		$tree.animate({width: '+=50'}, 500,'easeOutElastic');	
+	}
+	
+	function shrink() {
+		$tree.animate({width: '-=50'}, 500,'easeOutElastic');	
+	}
+	
+	function fade() {
+		$tree.fadeOut();	
+	}	
+	
+ });
+		
+</script>
+</body>
+</html>
