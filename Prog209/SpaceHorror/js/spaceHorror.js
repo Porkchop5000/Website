@@ -8,7 +8,9 @@ const playButton01 = document.getElementById("playButton01"),
 	saveButton = document.getElementById("saveButton"),
 	quitButton01 = document.getElementById("quitButton01"),
 	quitButton02 = document.getElementById("quitButton02"),
-	enterButton = document.getElementById("enterButton");
+	enterButton = document.getElementById("enterButton"),
+	helpButton = document.getElementById("helpButton");
+	
 
 //get divs from the dom tree. making them variables to they can be manipulated
 var	locationImage = document.querySelector("#locationImage"),
@@ -19,10 +21,50 @@ var	locationImage = document.querySelector("#locationImage"),
 	consoleDisplay = document.querySelector("#playerConsole"),
 	inventoryDisplay = document.querySelector("#itemsHeld"),
 	oxygenDisplay = document.querySelector("#oxygenRemaining"),
+	helpDisplay = document.querySelector("#help"),
 	gameOverBanner = document.querySelector("#gameOverBanner"),
 	gameOverMessage = document.querySelector("#gameOverMessage"),
 	gameOverScreen = document.querySelector("#gameOverScreen");
 	
+//get audio from html
+const atmosphereNoise = document.getElementById("atmosphere"),
+	swarmNoise = document.getElementById("swarmNoise"),
+	turretNoise = document.getElementById("turretFire"),
+	lurkerNoise = document.getElementById("lurkerNoise"),
+	sentinelNoise = document.getElementById("sentinelNoise"),
+	spacesuitOnNoise = document.getElementById("spacesuitOn"),
+	spacesuitOffNoise = document.getElementById("spacesuitOff"),
+	airlockNoise = document.getElementById("airlockNoise"),
+	blasterNoise = document.getElementById("blasterNoise"),
+	breathingNoise = document.getElementById("breathingNoise"),
+	powerUpNoise = document.getElementById("powerUpNoise"),
+	switchNoise = document.getElementById("switchNoise"),
+	doorOpenNoise = document.getElementById("doorOpenNoise"),
+	radioNoise = document.getElementById("radioNoise");
+
+//set volume on sounds
+atmosphereNoise.volume = 0.5;
+swarmNoise.volume = 0.5;
+turretNoise.volume = 0.5;
+lurkerNoise.volume = 0.5;
+sentinelNoise.volume = 0.5;
+spacesuitOnNoise.volume = 0.25;
+spacesuitOffNoise.volume = 0.25;
+airlockNoise.volume = 0.25;
+blasterNoise.volume = 0.25;
+breathingNoise.volume = 0.15;
+powerUpNoise.volume = 0.25;
+switchNoise.volume = 0.5;
+doorOpenNoise.volume = 0.5;
+radioNoise.volume = 0.5;
+
+//set ambient and noise to loop
+atmosphereNoise.loop = true;
+breathingNoise.loop = true;
+
+//create a sound effects variable to play sounds separate from the ambient noise
+var sfx = null;
+
 
 //event listeners
 playButton01.addEventListener("click", startGameHandler, false);
@@ -32,6 +74,7 @@ loadButton02.addEventListener("click", loadHandler, false);
 saveButton.addEventListener("click", saveHandler, false);
 quitButton01.addEventListener("click", quitHandler, false);
 quitButton02.addEventListener("click", quitHandler, false);
+helpButton.addEventListener("click", help, false);
 enterButton.addEventListener("click", playGame, false);
 window.addEventListener("keydown",keydownHandler,false);
 
@@ -47,13 +90,20 @@ var map = [
 	creatures: null,
 	onRender: function () {
 		this.locationDescription = "";//reset the desription for each render
-		this.locationDescription += "<p>This is the main communications hub for the ship. " +
-		"There's a <em>comm console</em> in here. Perhaps you can call for help. " +
-		"You'll probably go to prison, but it sure beats dying here.</p>";
+		this.locationDescription += `<p>This is the main communications hub for the ship.
+		There's a <em>comm console</em> in here. Perhaps you can call for help. 
+		You'll probably go to prison, but it sure beats dying here.</p>`;
 		if (this.locationItems !== "") {
-			this.locationDescription += "There is a <em>" + this.locationItems + "</em> here."; 
-		}
-	}
+			this.locationDescription += `There is a <em> ${this.locationItems} </em> here.`; 
+		}		
+	},
+	onEnter: function () {
+		//on enter function goes here
+		console.log("onEnter function fired");
+	},
+	helpMessage: `There is a comm satellite to the east of here that will need to be aligned. 
+	You will also need a security chip to access the communications system. Most likely the captain
+	has it.</br>`
 },
 {
 	locationName: "Communications Satellite Dish",//map location 1
@@ -67,16 +117,29 @@ var map = [
 	onRender: function () {
 		this.locationDescription = "";//reset the description
 		if (this.satelliteAligned !== true) {
-			this.locationDescription += "The communications <em>satellite dish</em> appears be out of alignment.";
+			this.locationDescription += `The communications <em>satellite dish</em> appears be out of alignment. `;
 		}
 		else {
-			this.locationDescription += "The communications satellite dish is aligned.";
+			this.locationDescription += `The communications satellite dish is aligned. `;
 		}
 		if (this.creatures != null) {
-			this.locationDescription += "There is something else out here...";
+			this.locationDescription += `There is something else out here... `;
 		}
+		if (this.locationItems !== "") {
+			this.locationDescription += `There is a <em> ${this.locationItems} </em> here. `; 
+		}		
 		console.log("This rendered");
-	}
+	},
+	onEnter: function () {
+		//on enter function goes here
+		if (this.creatures !== null) {
+			sfx = lurkerNoise;
+			sfx.play();
+		}
+		console.log("onEnter function fired");
+	},
+	helpMessage: `You won't be able to adjust the satellite if the Lurker is still alive out here.
+	There is a mining turret to the east of here that might solve that problem.</br>`
 },	
 {
 	locationName: "Mining Turret",//map location 2
@@ -88,15 +151,21 @@ var map = [
 	creatures: null,
 	onRender: function () {
 		this.locationDescription = "";
-		this.locationDescription += "This photon <em>turret</em> was used to blow holes in asteroids" +
-			" to get to their precious metals. You can see the satellite dish from here.";
+		this.locationDescription += `This photon <em>turret</em> was used to blow holes in asteroids
+			 to get to their precious metals. You can see the satellite dish from here. `;
 		if (map[1].creatures !== null) {
-			this.locationDescription += "There's also something moving around out there.";
+			this.locationDescription += `There's also something moving around out there. `;
 		}
 		if (this.locationItems !== "") {
-			this.locationDescription += "There is a <em>" + this.locationItems + "</em> here."; 
+			this.locationDescription += `There is a <em> ${this.locationItems} </em> here.`; 
 		}
-	}
+	},
+	onEnter: function () {
+		//on enter function goes here
+		console.log("onEnter function fired");
+	},
+	helpMessage: `The mining turret needs a lot of power to operate. If the ship is still running on
+	auxillary power, that won't be enough. You'll need to find a way to activate the main power.</br>`
 },
 {
 	locationName: "Hold",//map location 3
@@ -105,14 +174,26 @@ var map = [
 	locationItems: "repair kit",
 	usableItems: "",
 	locked: false,
-	creatures: null,
+	creatures: "sentinel",
 	onRender: function () {
 		this.locationDescription = "";//reset the desription for each render
-		this.locationDescription += "Doesn't look like there is much left of the prisoners here.";
+		this.locationDescription += `Doesn't look like there is much left of the prisoners here. `;
 		if (this.locationItems !== "") {
-			this.locationDescription += "There is a <em>" + this.locationItems + "</em> here."; 
+			this.locationDescription += `There is a <em> ${this.locationItems} </em> here. `; 
 		}
-	}
+	},
+	onEnter: function () {
+		//sentinel noise if the sentinel is here
+		if (this.creatures !== null) {
+			sfx = sentinelNoise;
+			sfx.play();
+		}
+		console.log("onEnter function fired");
+	},
+	helpMessage: `The sentinel seems weaker than some of the other creatures on the ship.
+	If you can find a weapon, you might be able to kill it and get to the repair kit.</br>
+	The captain's quarters are south of here, but the door is locked. If you can find a key card
+	you might be able to open it.</br>`
 },
 {
 	locationName: "Flight Deck",//map location 4
@@ -124,18 +205,23 @@ var map = [
 	creatures: null,
 	onRender: function () {
 		this.locationDescription = "";//reset the desription for each render
-		this.locationDescription += "Your ship doesn't look like it's going to be repairable. " + 
-			"Where is everyone? Maybe you should take a look around.";
+		this.locationDescription += `Your ship doesn't look like it's going to be repairable.  
+			Where is everyone? Maybe you should take a look around.`;
 		if (this.locationItems !== "") {
-			this.locationDescription += "There is a <em>" + this.locationItems + "</em> here."; 
+			this.locationDescription += `There is a <em> ${this.locationItems} </em> here. `; 
 		}
-	}
+	},
+	onEnter: function () {
+		//on enter function goes here
+		console.log("onEnter function fired");
+	},
+	helpMessage: "There isn't much to do in this room except explore.</br>"
 },
 {
 	locationName: "Main Power",//map location 5
 	locationDescription: "",
 	locationImage: "images/mainPower.jpg",
-	locationItems: "",
+	locationItems: "blaster",
 	usableItems: "switch",
 	locked: false,
 	creatures: null,
@@ -143,20 +229,26 @@ var map = [
 	consoleRepaired: false,
 	onRender: function () {
 		this.locationDescription = "",
-		this.locationDescription = "There is a console here with the main power control <em>switch</em> here.";
+		this.locationDescription = `There is a console with the main power control <em>switch</em> here.`;
 		if (this.mainPowerActivated !== true) {
-			this.locationDescription += " The ship is currently only running on auxillary power. ";			
+			this.locationDescription += ` The ship is currently only running on auxillary power. `;			
 		}
 		else {
-			this.locationDescription += " The main power has been activated. ";
+			this.locationDescription += ` The main power has been activated. `;
 		}
 		if (this.consoleRepaired !== true) {
-			this.locationDescription += " The power controls are damaged, but it looks repairable...";
+			this.locationDescription += ` The power controls are damaged, but it looks repairable...`;
 		}
 		if (this.locationItems !== "") {
-			this.locationDescription += " There is a <em>" + this.locationItems + "</em> here."; 
+			this.locationDescription += `There is a <em> ${this.locationItems} </em> here. `; 
 		}
-	}	
+	},
+	onEnter: function () {
+		//on enter function goes here
+		console.log("onEnter function fired");
+	},
+	helpMessage: `Before you can activate the switch, you'll need to repair it. Maybe there are 
+	some tools in the ship.</br>`
 },
 {
 	locationName: "Quarter Deck",//map location 6
@@ -168,12 +260,17 @@ var map = [
 	creatures: null,
 	onRender: function () {
 		this.locationDescription = "";
-		this.locationDescription += "Looks like the captain barricaded himself in here. " + 
-		"A lot of good that did. There doesn't appear to be much left of him. ";
+		this.locationDescription += `Looks like the captain barricaded himself in here. 
+		A lot of good that did. There doesn't appear to be much left of him. `;
 		if (this.locationItems !== "") {
-			this.locationDescription += "There is a <em>" + this.locationItems + "</em> here."; 
+			this.locationDescription += `There is a <em> ${this.locationItems} </em> here. `; 
 		}
-	}	
+	},
+	onEnter: function () {
+		//on enter function goes here
+		console.log("onEnter function fired");
+	},
+	helpMessage: `Not much to do here except take the security chip from the captain's body.</br>`
 },
 {
 	locationName: "Muster Station",//map location 7
@@ -185,12 +282,22 @@ var map = [
 	creatures: "swarm",
 	onRender: function () {
 		this.locationDescription = "";
-		this.locationDescription += "Looks like some sort of massacre happened here. " +
-		"There is an <em>airlock</em> that still appears to be functioning. ";		
+		this.locationDescription += `Looks like some sort of massacre happened here. 
+		There is an <em>airlock</em> that still appears to be functioning. `;		
 		if (this.locationItems !== "") {
-			this.locationDescription += "There is a <em>" + this.locationItems + "</em> here."; 
+			this.locationDescription += `There is a <em> ${this.locationItems} </em> here. `; 
 		}
-	}	
+	},
+	onEnter: function () {
+		//make swarm noise upon room entry if the swarm is in the room
+		if (this.creatures !== null) {
+			sfx = swarmNoise;
+			sfx.play();
+		}
+		console.log("onEnter function fired");
+	},
+	helpMessage: `The swarm is too strong to kill with standard weapons. There is an airlock in here,
+	but if you aren't wearing a space suit when you activate it, you'll die too.</br>`
 },
 {
 	locationName: "Ward Room",//map location 8
@@ -202,12 +309,18 @@ var map = [
 	creatures: null,
 	onRender: function () {
 		this.locationDescription = "";
-		this.locationDescription += "This is where the crew would relax." +
-		" Nothing about this place feels relaxing anymore. ";		
+		this.locationDescription += `This is where the crew would relax.
+		 Nothing about this place feels relaxing anymore. `;		
 		if (this.locationItems !== "") {
-			this.locationDescription += "There is a <em>" + this.locationItems + "</em> here."; 
+			this.locationDescription += `There is a <em> ${this.locationItems} </em> here. `; 
 		}
-	}
+	},
+	onEnter: function () {
+		//on enter function goes here
+		console.log("onEnter function fired");
+	},
+	helpMessage: `The space suit will be useful for environments with no oxygen. Just be sure to 
+	use the space suit to equip it.</br>`
 },
 ];
 
@@ -215,8 +328,8 @@ var map = [
 var mapLocation = 4;
 
 //item locations - may only need this for local storage
-var items = ["security chip", "space suit", "repair kit", "key card"];
-var itemLocations = [6, 8, 3, 7];
+var items = ["security chip", "space suit", "repair kit", "blaster", "key card"];
+var itemLocations = [6, 8, 3, 5, 7];
 
 //keep track of player's inventory
 var inventory = [];
@@ -234,12 +347,16 @@ var action = "";
 
 //array of items and usable room items the game understands
 var itemsIknow = ["comm console", "satellite dish", "turret", "repair kit",
- "switch", "security chip", "key card", "airlock", "space suit"];
+ "switch", "security chip", "key card", "airlock", "space suit", "blaster"];
 
 var item = "";
 
 //variable to determine if player is wearing the space suit or not
 var spaceSuit = false;
+
+//this will be used within the render function to call different renders from when
+//a player changes locations
+var locationChanged = false;
 
 //display the player's location
 render();
@@ -256,12 +373,19 @@ function startGameHandler() {
 function continueHandler() {	
 	"use strict";
 	displayScreen(gameScreen);
+	locationChanged = true;
+	render();
+	atmosphereNoise.play();
 }
 
 //this quits the game and goes back to the title screen
 function quitHandler() {
 	"use strict";
 	displayScreen(titleScreen);
+	if (sfx !== null) {
+		sfx.pause();
+		sfx = null;
+	}
 }
 
 //this is for when the game ends (win or lose) 
@@ -270,6 +394,7 @@ function gameOver(ending) {
 	displayScreen(gameOverScreen);
 	switch(ending) {
 		case "suckedIntoSpace":
+		breathingNoise.pause();
 		console.log("you dead sucka");
 		gameOverMessage.innerHTML = "<p>You activate the airlock and are sucked into the void of space." +
 		" As the fluid in your eyes boils and the oxygen is violently sucked out of your lungs only to" +
@@ -278,7 +403,14 @@ function gameOver(ending) {
 		break;
 		
 		case "saved":
+		breathingNoise.pause();
 		console.log("saved");
+		if (sfx !== null) {
+			sfx.pause();
+			sfx = null;
+		}
+		sfx = radioNoise;
+		sfx.play();
 		gameOverScreen.style.backgroundImage = "url(images/savedEnding.jpg)";
 		gameOverBanner.style.display = "none";
 		console.log("saved ending");
@@ -315,12 +447,14 @@ function saveHandler( ){
 	//need to fix this 
 	localStorage.setItem("lurker", map[1].creatures);
 	localStorage.setItem("swarm", map[7].creatures);
+	localStorage.setItem("sentinel", map[3].creatures);
 }
 
 //this is for loading a saved game 
 function loadHandler( ) { 
 	"use strict";
 	displayScreen(gameScreen);
+	inventory = [];//clear out existing inventory
 	//code to load inventory from local storage
 	for (let i =0; i <itemsIknow.length; i++) {
 		if (localStorage.getItem(itemsIknow[i]) !== null) {
@@ -337,10 +471,15 @@ function loadHandler( ) {
 	}
 	//code to load player's current location
 	mapLocation = parseInt(localStorage.getItem("mapLocation"));//convert string to integer
+	//code just in case no integer is found
+	if (isNaN(mapLocation)) {
+		mapLocation = 4;
+	}
 	//code to pull various room states and load them so that it creates a boolean from the string
 	spaceSuit = (localStorage.getItem("spaceSuit") == "true");
 	if (spaceSuit) {
 		map[1].locked = false;//unlocks the comm sat area if the space suit is true
+		breathingNoise.play();//start the breathing noise
 	}
 	map[1].satelliteAligned = (localStorage.getItem("satelliteAligned") == "true");
 	map[5].consoleRepaired = (localStorage.getItem("consoleRepaired") == "true");
@@ -352,13 +491,17 @@ function loadHandler( ) {
 	if (!map[6].locked) {
 		map[7].locationItems = ""; //remove the key card if the room is not locked 
 	}
-	//need to fix this
 	if (localStorage.getItem("lurker") == "null") {
 		map[1].creatures = null;//remove the lurker if it's already been killed
 	};
 	if (localStorage.getItem("swarm") == "null") {
 		map[7].creatures = null;//remove the swarm if it's already been killed 
 	};
+	if (localStorage.getItem("sentinel") == "null") {
+		map[3].creatures = null;//remove the sentinel if it's already been killed 
+	};
+	atmosphereNoise.play();//start playing the atmospheric noise
+	locationChanged = true;
 	//call render function 
 	render();
 }
@@ -416,10 +559,16 @@ function playGame() {
 	}
 	//choose the correct action
 	switch(action) {
-		//start with directions - probably will add a direction handler using the location objects
+		//start with directions - verifies if rooms are locked prior to allow player to enter 
 		case "north":
 		if(mapLocation >=3 && map[mapLocation - 3].locked == false) {
 			mapLocation -= 3;
+			//stop any sfx from prior rooms
+			if (sfx !== null) {
+				sfx.pause();
+				sfx = null;
+			}
+			locationChanged = true;//change this to true so that the onEnter function can be rendered
 		}
 		else {
 			blockedPathMessageHandler(mapLocation - 3);
@@ -428,6 +577,11 @@ function playGame() {
 		case "east":
 		if(mapLocation % 3 != 2 && map[mapLocation + 1].locked == false) {
 			mapLocation += 1;
+			if (sfx !== null) {
+				sfx.pause();
+				sfx = null;
+			}
+			locationChanged = true;
 		}
 		else {
 			blockedPathMessageHandler(mapLocation + 1);
@@ -436,6 +590,11 @@ function playGame() {
 		case "south":
 		if(mapLocation < 6 && map[mapLocation + 3].locked == false) {
 			mapLocation += 3;
+			if (sfx !== null) {
+				sfx.pause();
+				sfx = null;
+			}
+			locationChanged = true;
 		}
 		else {
 			blockedPathMessageHandler(mapLocation + 3);
@@ -444,6 +603,11 @@ function playGame() {
 		case "west":
 		if(mapLocation % 3 != 0 && map[mapLocation - 1].locked == false) {
 			mapLocation -= 1;
+			if (sfx !== null) {
+				sfx.pause();
+				sfx = null;
+			}
+			locationChanged = true;
 		}
 		else {
 			blockedPathMessageHandler(mapLocation - 1);
@@ -461,7 +625,7 @@ function playGame() {
 		consoleMessage = "I do not understand that command.";		
 	}
 	//after all these are completed, this renders the game
-	render();
+		render();
 }
 
 //function that executes the take command
@@ -471,12 +635,11 @@ function takeItem() {
 	if(item == map[mapLocation].locationItems) {
 		//prevent a player from taking an item in a room full of creatures
 		if(map[mapLocation].creatures != null) {
-		consoleMessage = "You can't take the " + item + " the " + map[mapLocation].creatures +
-		" will kill you.";
+		consoleMessage = `You can't take the ${item} the ${map[mapLocation].creatures} will kill you.`;
 		}
 		//set up the console message
 		else {
-		consoleMessage = "You take the " + item + ".";
+		consoleMessage = `You take the ${item}.`;
 		//remove from the map location
 		map[mapLocation].locationItems = "";
 		//put the item in the players inventory
@@ -500,12 +663,17 @@ function useItem() {
 	else {
 		if(map[mapLocation].creatures !== null && map[mapLocation].usableItems !== "airlock" &&
 		inventoryIndexNumber === -1) {
-			consoleMessage = "You can't get to the " + item + " the " + map[mapLocation].creatures +
-			" will kill you";
+			consoleMessage = `You can't get to the ${item} the ${map[mapLocation].creatures} will kill you`;
 		}
 		else {
 				switch(item) {
 					case "airlock":
+						//make sfx to airlock
+						if (sfx !== null) {
+								sfx.pause();
+						}
+						sfx = airlockNoise;
+						sfx.play();
 						if (spaceSuit) {//verify player is wearing the space suit
 							consoleMessage = "You open the airlock and hold on tight while the ";
 							if (map[mapLocation].creatures !== null) {
@@ -525,11 +693,25 @@ function useItem() {
 						
 					case "space suit":
 						if (spaceSuit) {//checks to see if play is already wearing the space suit
+							if (sfx !== null) {
+								sfx.pause();
+								sfx = null;
+							}
+							breathingNoise.pause();
+							sfx = spacesuitOffNoise;
+							sfx.play();
 							consoleMessage = "You take off the space suit.";
 							spaceSuit = false;//removes the space suit 
 							map[1].locked = true;//you cannot travel outside anymore 
 						}
 						else {//puts the space suit on if they are not already wearing it
+							if (sfx !== null) {
+								sfx.pause();
+								sfx = null;
+							}
+							sfx = spacesuitOnNoise;
+							sfx.play();
+							breathingNoise.play();
 							consoleMessage = "You put on the space suit.";
 							spaceSuit = true;
 							map[1].locked = false;
@@ -555,6 +737,12 @@ function useItem() {
 					case "key card":
 						if (mapLocation == 3) {
 							map[6].locked = false;
+							if (sfx !== null) {
+								sfx.pause();
+								sfx = null;
+							}
+							sfx = doorOpenNoise;
+							sfx.play();
 							consoleMessage = "You use the key card to unlock the captain's quarters.";
 							let inventoryIndexNumber = inventory.indexOf(item);
 							inventory.splice(inventoryIndexNumber, 1);
@@ -579,9 +767,21 @@ function useItem() {
 					case "switch":
 						if (map[5].consoleRepaired) { //check to see if the console is fixed first
 							map[5].mainPowerActivated = true; //activates main power
+							if (sfx !== null) {
+								sfx.pause();
+								sfx = null;
+							}
+							sfx = powerUpNoise;
+							sfx.play();
 							consoleMessage = "You have activated the main power.";
 						}
 						else {
+							if (sfx !== null) {
+								sfx.pause();
+								sfx = null;
+							}
+							sfx = switchNoise;
+							sfx.play();
 							consoleMessage = "The main power console is damaged and you cannot activate" + 
 							" the switch";
 						}
@@ -589,6 +789,12 @@ function useItem() {
 					
 					case "turret":
 						if (map[5].mainPowerActivated) { //check to see if the main power is on
+							if (sfx !== null) {
+								sfx.pause();
+								sfx = null;
+							}
+							sfx = turretNoise;
+							sfx.play();
 							if (map[1].creatures !== null) { //check to see if the lurker is still out there
 								map[1].creatures = null;//kill the lurker
 								consoleMessage = "A few careful well-timed shots and now the Lurker is dead.";
@@ -610,8 +816,54 @@ function useItem() {
 						break;
 						
 					case "comm console":
+						if (sfx !== null) {
+								sfx.pause();
+								sfx = null;
+							}
+							sfx = switchNoise;
+							sfx.play();
 						consoleMessage = "This has a security lock. Looks like the captain blocked " + 
 						"access to everyone else, but himself.";
+						break;
+						
+					case "blaster":
+						if (map[mapLocation].creatures == null)	{
+							consoleMessage = "There doesn't seem to be much of a point firing this off " +
+							"in here. This ship is already damaged enough as it is. ";
+						}
+						if (mapLocation == 3 && map[3].creatures !== null) {
+							if (sfx !== null) {
+								sfx.pause();
+								sfx = null;
+							}
+							sfx = blasterNoise;
+							sfx.play();
+							consoleMessage = `You fire a shot at the ${map[3].creatures}
+							 killing it. It looks like these things are mortal after all.`;
+							map[3].creatures = null;
+							break;
+						}
+						if (mapLocation == 1 && map[1].creatures !== null) {
+							if (sfx !== null) {
+								sfx.pause();
+								sfx = null;
+							}
+							sfx = blasterNoise;
+							sfx.play();
+							consoleMessage = `You fire your blaster at the ${map[1].creatures}
+							 and it has no effect. You're going to need something with more firepower.`;
+						}
+						if (mapLocation == 7 && map[7].creatures !== null) {
+							if (sfx !== null) {
+								sfx.pause();
+								sfx = null;
+							}
+							sfx = blasterNoise;
+							sfx.play();
+							consoleMessage = `You take aim and fire, but the ${map[7].creatures}
+							 seems to regenerate faster than you can damage it. There must 
+							 be some other way to kill this thing.`;
+						}
 						break;
 					
 					default: 
@@ -623,6 +875,9 @@ function useItem() {
 
 //function to render the player's location
 function render() {	
+//	if (locationChanged) {
+//		exitLocationChangeAnimation();//do the animation for exiting a location 
+//	}
 	//use the location's on render function if one exists
 	map[mapLocation].onRender();
 	// render the image using the map location object 
@@ -638,12 +893,21 @@ function render() {
 	else {
 		locationCreatures.style.display = "none";
 	}
+	//hide help message if it is up
+	helpDisplay.style.display = "none";
 	//display the console messages
 	consoleDisplay.innerHTML = consoleMessage; 
 	//display inventory if the player has anything
 	inventoryDisplay.innerHTML = "<ul>Items Held: <li>" + inventory.join("</li><li>");
 	//clear the player's input
 	input.value = "";
+	//if location was changed, use the onEnter function for the room
+	if (locationChanged) {
+		enterLocationChangeAnimation();
+		map[mapLocation].onEnter();
+		locationChanged = false;//set this back to false so it doesn't keep doing the on enter
+		//function.
+	}
 	//display oxygen remaining if implemented
 }
 
@@ -671,4 +935,60 @@ function blockedPathMessageHandler(location) {
 			default:
 				consoleMessage = "You can't go that way.";
 		}
+}
+
+//function for exiting a location animation - not functioning
+//function exitLocationChangeAnimation() {
+//	var tl = new TimelineMax();
+//	switch(action) {
+//		case "north": 
+//		TweenMax.to(locationImage, 1, {y: 700});
+//		break;
+//		case "south":
+//		TweenMax.to(locationImage, 1, {y: -700});
+//		break;
+//		case "east":
+//		TweenMax.to(locationImage, 1, {x: -700});
+//		break;
+//		case "west":
+//		TweenMax.to(locationImage, 1, {x: 700});
+//		default:
+//		break;
+//	}
+//	console.log('exit location change animation fired');
+//	return tl;
+//}
+
+//function for enteriong a location animation
+function enterLocationChangeAnimation() {
+//		var exitAnimation = exitLocationChangeAnimation();
+//		exitAnimation.pause(0);
+		TweenMax.from(locationName, 1, {y: -50});
+		TweenMax.from(locationMessage, 1, {x: -450});
+		TweenMax.from(locationCreatures, 1, {x: -700});
+//		switch(action) {
+//			case "north": 
+//			TweenMax.from(locationImage, 1, {y: 700});
+//			break;
+//			case "south":
+//			TweenMax.from(locationImage, 1, {y: -700});
+//			break;
+//			case "east":
+//			TweenMax.from(locationImage, 1, {x: -700});
+//			break;
+//			case "west":
+//			TweenMax.from(locationImage, 1, {x: 700});
+//			default:
+//			break;
+//		}
+		console.log('enter location change animation fired');
+}
+
+//function for the help button 
+function help(){
+	//function goes here
+	helpDisplay.style.display = "block";
+	helpDisplay.innerHTML = map[mapLocation].helpMessage;
+	TweenMax.from(helpDisplay, 1, {y: 400});
+	console.log("help function fired");
 }
